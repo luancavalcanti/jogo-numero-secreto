@@ -1,8 +1,8 @@
-function verificaSeOChutePossuiUmValorValido(chute){
+ function verificaSeOChutePossuiUmValorValido(chute){
     const numero = +chute;
 
     if(chuteInvalido(numero)){
-        elementoChute.innerHTML += '<div>Isso não é um número</div>';
+        elementoChute.innerHTML += '<div>Isso não é um número</div><div>Fale novamente</div>';
         return;
     }
 
@@ -13,23 +13,36 @@ function verificaSeOChutePossuiUmValorValido(chute){
         `;
         return;
     }
-    
     if(numero === numeroSecreto){
+        document.body.style.backgroundColor = '#E74646';
         document.body.innerHTML = `
-            <h2>Você acertou!</h2>
+            <h2>Você perdeu!</h2>
             <h3>O número sercreto era ${numeroSecreto}</h3>
 
             <button id="jogar-novamente" class="btn-jogar">Jogar Novamente</button>
         `;
     }else if (numero > numeroSecreto){
+        temp_maiorValor = numero;
         elementoChute.innerHTML += `
-        <div>O número secreto é menor <i class="fa-solid fa-down-long"></i></div>
+        <div>O número está entre" ${temp_menorValor} e ${temp_maiorValor}</div>
         `
     }else{
+        temp_menorValor = numero;
+        arrayChute.push(numero);
         elementoChute.innerHTML += `
-        <div>O número secreto é maior <i class="fa-solid fa-up-long"></i></div>
+        <div>O número está entre" ${temp_menorValor} e ${temp_maiorValor}</div>
         `
     }
+    if(temp_maiorValor - temp_menorValor == 2){
+        document.body.style.backgroundColor = '#54B435';
+        document.body.innerHTML = `
+            <h2>Você Ganhou!</h2>
+            <h3>O número sercreto era ${numeroSecreto}</h3>
+
+            <button id="jogar-novamente" class="btn-jogar">Jogar Novamente</button>
+        `;
+    }
+    console.log("quantidade de opções:", temp_maiorValor - temp_menorValor)
 
 }
 
